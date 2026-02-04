@@ -1,0 +1,56 @@
+
+=== GOALS-BRIAN-TRACY.TXT PREPROCESSING RESULTS ===
+
+File: Goals-Brian-Tracy.txt
+Generated: 2026-02-04T12:52:13.723Z
+
+=== STATISTICS ===
+Total tokens: 72612
+Unique tokens: 4867
+Vocabulary size (min count >= 10): 831
+Tokens in vocabulary: 62924
+Vocabulary coverage: 86.66%
+Minimum count threshold: 10
+Window size: 3
+
+=== VOCABULARY INFORMATION ===
+Vocabulary contains the 831 most frequent words that appear at least 10 times.
+
+Top 30 most frequent words:
+  1. "the"
+  2. "you"
+  3. "and"
+  4. "to"
+  5. "of"
+  6. "your"
+  7. "in"
+  8. "a"
+  9. "that"
+  10. "is"
+  11. "it"
+  12. "are"
+  13. "or"
+  14. "be"
+  15. "what"
+  16. "for"
+  17. "will"
+  18. "have"
+  19. "on"
+  20. "as"
+  21. "this"
+  22. "with"
+  23. "they"
+  24. "do"
+  25. "i"
+  26. "more"
+  27. "life"
+  28. "can"
+  29. "if"
+  30. "at"
+
+=== FILE OUTPUTS ===
+- goals_cleaned_tokens.json: Array of all cleaned tokens
+- goals_vocabulary.json: Vocabulary mappings and word frequencies
+- goals_training_pairs.json: CBOW training pairs [context, target]
+- goals_vocabulary_stats.txt: This statistics file
+- goals_preprocessing_log.txt: Detailed processing log

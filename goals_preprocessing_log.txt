@@ -1,0 +1,120 @@
+
+=== GOALS-BRIAN-TRACY.TXT PREPROCESSING LOG ===
+
+Timestamp: 2026-02-04T12:52:13.727Z
+
+=== PROCESSING STEPS ===
+
+1. TEXT LOADING AND CLEANING:
+   - Loaded Goals-Brian-Tracy.txt
+   - Converted to lowercase
+   - Removed punctuation, numbers, and special characters
+   - Split by whitespace and filtered empty strings
+   - Total tokens extracted: 72612
+
+2. VOCABULARY BUILDING:
+   - Counted word frequencies across all tokens
+   - Filtered words appearing at least 10 times
+   - Sorted vocabulary by frequency (descending)
+   - Vocabulary size: 831
+   - Coverage: 86.66% of total tokens
+
+3. TRAINING PAIR GENERATION:
+   - Used CBOW (Continuous Bag of Words) approach
+   - Window size: 3 (context words on each side)
+   - Generated 62920 training pairs
+   - Each pair contains: { context: [indices], target: index }
+
+=== VOCABULARY DETAILS ===
+
+Word-to-Index Mappings:
+  "the" -> 0
+  "you" -> 1
+  "and" -> 2
+  "to" -> 3
+  "of" -> 4
+  "your" -> 5
+  "in" -> 6
+  "a" -> 7
+  "that" -> 8
+  "is" -> 9
+  "it" -> 10
+  "are" -> 11
+  "or" -> 12
+  "be" -> 13
+  "what" -> 14
+  "for" -> 15
+  "will" -> 16
+  "have" -> 17
+  "on" -> 18
+  "as" -> 19
+
+Index-to-Word Mappings:
+  0 -> "the"
+  1 -> "you"
+  2 -> "and"
+  3 -> "to"
+  4 -> "of"
+  5 -> "your"
+  6 -> "in"
+  7 -> "a"
+  8 -> "that"
+  9 -> "is"
+  10 -> "it"
+  11 -> "are"
+  12 -> "or"
+  13 -> "be"
+  14 -> "what"
+  15 -> "for"
+  16 -> "will"
+  17 -> "have"
+  18 -> "on"
+  19 -> "as"
+
+=== EXAMPLE TRAINING PAIRS ===
+
+
+Pair 1:
+  Context indices: [49, 3, 55]
+  Context words: [how, to, get]
+  Target index: 30
+  Target word: "goals"
+
+Pair 2:
+  Context indices: [30, 3, 55, 103]
+  Context words: [goals, to, get, everything]
+  Target index: 49
+  Target word: "how"
+
+Pair 3:
+  Context indices: [30, 49, 55, 103, 1]
+  Context words: [goals, how, get, everything, you]
+  Target index: 3
+  Target word: "to"
+
+Pair 4:
+  Context indices: [30, 49, 3, 103, 1, 54]
+  Context words: [goals, how, to, everything, you, want]
+  Target index: 55
+  Target word: "get"
+
+Pair 5:
+  Context indices: [49, 3, 55, 1, 54, 200]
+  Context words: [how, to, get, you, want, faster]
+  Target index: 103
+  Target word: "everything"
+
+
+=== USAGE NOTES ===
+
+The generated files can be used for:
+
+1. Word2Vec training with the NeuralNetwork class
+2. Vocabulary analysis and word frequency studies
+3. Natural language processing tasks
+4. Text analysis and pattern recognition
+
+For neural network training, use:
+- Input layer size: 831
+- Hidden layer size: 50-300 (embedding dimension)
+- Output layer size: 831
