@@ -1,5 +1,6 @@
 import fs from 'fs';
-import TextPreprocessor from './text-preprocessor.js'; 
+import TextPreprocessor from './text-preprocessor.js';
+import { OptimizedNeuralNetwork } from './optimized-neural-network.js';
 
 function performVectorAnalogy(embeddings, wordA, wordB, wordC) {
     const vecA = embeddings[wordA];
@@ -64,21 +65,20 @@ async function runAnalogyDemo() {
     processor.cleanText('./Goals-Brian-Tracy.txt');
     processor.buildVocab();
     
-    const networkData = JSON.parse(fs.readFileSync('./goals_embedding_network.json', 'utf8'));
+    // Load the network using the binary format
+    const network = await OptimizedNeuralNetwork.load('./goals_embedding_network.json');
+    
+    // Extract embeddings from the first layer
+    const inputLayer = network.layers[0];
+    const vocabSize = processor.vocab.length;
+    const embeddingDim = 20;
+    
     const embeddings = {};
-    const weightMatrix = networkData.weights[0];
-    processor.vocab.forEach((word, index) => { if (weightMatrix[index]) embeddings[word] = weightMatrix[index]; });
-
-    console.log("\n=== TEST 1: The 'Action' Analogy ===");
-    console.log("Leaders - People + Goal = ?");
-    console.log(performVectorAnalogy(embeddings, "leaders", "people", "goal"));
-
-    console.log("\n=== TEST 4: The 'Opposite' Test ===");
-    console.log("What is the opposite of 'Success' in this model?");
-    console.log(findOppositeWord(embeddings, "success"));
-
-    console.log("\nWhat is the opposite of 'Force'?");
-    console.log(findOppositeWord(embeddings, "force"));
-}
-
+    processor.vocab.forEach((word, index) => {
+        const wordEmbedding = [];
+        for (let j = 0; j < embeddingDim; j++) {
+            wordEmbedding.push(inputLayer.weights[index * embeddingDim + j]);
+        }
+        embeddings[word] = wordEmbedding;
+    });
 runAnalogyDemo().catch(err => console.error(err));

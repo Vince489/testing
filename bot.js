@@ -1,14 +1,31 @@
 import fs from 'fs';
 import readline from 'readline';
+import { OptimizedNeuralNetwork } from './optimized-neural-network.js';
 
 // 1. Setup & Data Loading
-const networkData = JSON.parse(fs.readFileSync('./goals_embedding_network.json', 'utf8'));
 const vocabData = JSON.parse(fs.readFileSync('./goals_vocabulary.json', 'utf8'));
 const bookText = fs.readFileSync('./Goals-Brian-Tracy.txt', 'utf8'); 
 
+// Load the network using the binary format
+const network = await OptimizedNeuralNetwork.load('./goals_embedding_network.json');
+
 const wordToIndex = vocabData.wordToIndex;
-const weights = networkData.weights[0]; 
 const dimensions = 20;
+
+// Extract embeddings from the first layer
+const inputLayer = network.layers[0];
+const vocabSize = vocabData.vocabSize;
+const embeddingDim = 20;
+
+// Create proper embeddings mapping
+const embeddings = {};
+for (let i = 0; i < vocabSize; i++) {
+    const wordEmbedding = [];
+    for (let j = 0; j < embeddingDim; j++) {
+        wordEmbedding.push(inputLayer.weights[i * embeddingDim + j]);
+    }
+    embeddings[i] = wordEmbedding;
+}
 
 // Filter out noise (page numbers/short fragments) during vectorization
 const sentences = bookText.split(/[.!?]+/).filter(s => {
@@ -21,7 +38,7 @@ const sentences = bookText.split(/[.!?]+/).filter(s => {
 function getWordVector(word) {
     const index = wordToIndex[word.toLowerCase()];
     if (index === undefined) return null;
-    return weights[index];
+    return embeddings[index];
 }
 
 function cosineSimilarity(vecA, vecB) {

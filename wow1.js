@@ -1,5 +1,5 @@
 import fs from 'fs';
-import { NeuralNetwork } from './neural-network-2.js';
+import { OptimizedNeuralNetwork } from './optimized-neural-network.js';
 
 /**
  * Word2VecSimilarity Class
@@ -28,9 +28,22 @@ export class Word2VecSimilarity {
    * @returns {Array} Array of embedding vectors
    */
   _extractEmbeddings() {
-    // The input-to-hidden weights matrix is the first weights matrix
+    // The input-to-hidden weights matrix is in the first layer
     // Each row corresponds to a word in the vocabulary
-    return this.network.weights[0];
+    const inputLayer = this.network.layers[0];
+    const vocabSize = this.vocabulary.vocabSize;
+    const embeddingDim = 20; // Assuming 20-dimensional embeddings
+    
+    // Extract embeddings from the weight matrix
+    const embeddings = [];
+    for (let i = 0; i < vocabSize; i++) {
+      const wordEmbedding = [];
+      for (let j = 0; j < embeddingDim; j++) {
+        wordEmbedding.push(inputLayer.weights[i * embeddingDim + j]);
+      }
+      embeddings.push(wordEmbedding);
+    }
+    return embeddings;
   }
 
   /**
@@ -113,13 +126,10 @@ export class Word2VecSimilarity {
 }
 
 // Load the trained network and vocabulary
-const networkData = JSON.parse(fs.readFileSync('goals_embedding_network.json', 'utf8'));
 const vocabulary = JSON.parse(fs.readFileSync('goals_vocabulary.json', 'utf8'));
 
-// Create neural network instance and load the trained weights
-const network = new NeuralNetwork(networkData.config);
-network.weights = networkData.weights;
-network.biases = networkData.biases;
+// Load the network using the binary format
+const network = await OptimizedNeuralNetwork.load('goals_embedding_network.json');
 
 // Create the similarity checker
 const similarityChecker = new Word2VecSimilarity(network, vocabulary);

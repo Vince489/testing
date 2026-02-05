@@ -1,15 +1,12 @@
 import fs from 'fs';
-import { NeuralNetwork } from './neural-network-2.js';
+import { OptimizedNeuralNetwork } from './optimized-neural-network.js';
 import { EmbeddingSimilarity } from './embed.js';
 
-// Load the trained network and vocabulary
-const networkData = JSON.parse(fs.readFileSync('goals_embedding_network.json', 'utf8'));
+// Load the vocabulary
 const vocabulary = JSON.parse(fs.readFileSync('goals_vocabulary.json', 'utf8'));
 
-// Create neural network instance and load the trained weights
-const network = new NeuralNetwork(networkData.config);
-network.weights = networkData.weights;
-network.biases = networkData.biases;
+// Load the network using the binary format
+const network = await OptimizedNeuralNetwork.load('goals_embedding_network.json');
 
 // Create a modified version of the EmbeddingSimilarity class that normalizes the embeddings
 class FixedEmbeddingSimilarity extends EmbeddingSimilarity {
