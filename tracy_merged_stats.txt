@@ -1,0 +1,43 @@
+
+=== MERGED PREPROCESSING RESULTS ===
+Files: Goals-Brian-Tracy.txt, Eat-That-Frog.txt
+Generated: 2026-02-04T22:16:36.916Z
+
+=== STATISTICS ===
+Total tokens: 93174
+Unique tokens: 5337
+Vocabulary size (minCount >= 5): 1591
+Tokens in vocabulary: 40323
+Vocabulary coverage: 43.28%
+
+=== TOP 30 MOST FREQUENT WORDS (MERGED) ===
+  1. "time"
+  2. "life"
+  3. "yourself"
+  4. "people"
+  5. "most"
+  6. "goals"
+  7. "work"
+  8. "goal"
+  9. "get"
+  10. "make"
+  11. "important"
+  12. "day"
+  13. "task"
+  14. "want"
+  15. "success"
+  16. "achieve"
+  17. "mind"
+  18. "think"
+  19. "take"
+  20. "become"
+  21. "person"
+  22. "things"
+  23. "way"
+  24. "job"
+  25. "begin"
+  26. "today"
+  27. "first"
+  28. "key"
+  29. "everything"
+  30. "set"

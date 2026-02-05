@@ -1,7 +1,7 @@
 
 === GOALS-BRIAN-TRACY.TXT PREPROCESSING LOG ===
 
-Timestamp: 2026-02-04T12:52:13.727Z
+Timestamp: 2026-02-05T02:08:21.314Z
 
 === PROCESSING STEPS ===
 
@@ -10,99 +10,99 @@ Timestamp: 2026-02-04T12:52:13.727Z
    - Converted to lowercase
    - Removed punctuation, numbers, and special characters
    - Split by whitespace and filtered empty strings
-   - Total tokens extracted: 72612
+   - Total tokens extracted: 73178
 
 2. VOCABULARY BUILDING:
    - Counted word frequencies across all tokens
-   - Filtered words appearing at least 10 times
+   - Filtered words appearing at least 2 times
    - Sorted vocabulary by frequency (descending)
-   - Vocabulary size: 831
-   - Coverage: 86.66% of total tokens
+   - Vocabulary size: 2787
+   - Coverage: 47.16% of total tokens
 
 3. TRAINING PAIR GENERATION:
    - Used CBOW (Continuous Bag of Words) approach
-   - Window size: 3 (context words on each side)
-   - Generated 62920 training pairs
+   - Window size: 5 (context words on each side)
+   - Generated 34480 training pairs
    - Each pair contains: { context: [indices], target: index }
 
 === VOCABULARY DETAILS ===
 
 Word-to-Index Mappings:
-  "the" -> 0
-  "you" -> 1
-  "and" -> 2
-  "to" -> 3
-  "of" -> 4
-  "your" -> 5
-  "in" -> 6
-  "a" -> 7
-  "that" -> 8
-  "is" -> 9
-  "it" -> 10
-  "are" -> 11
-  "or" -> 12
-  "be" -> 13
-  "what" -> 14
-  "for" -> 15
-  "will" -> 16
-  "have" -> 17
-  "on" -> 18
-  "as" -> 19
+  "1" -> 187
+  "2" -> 166
+  "3" -> 152
+  "4" -> 220
+  "5" -> 208
+  "6" -> 505
+  "7" -> 746
+  "8" -> 1608
+  "9" -> 1350
+  "10" -> 305
+  "11" -> 2016
+  "12" -> 915
+  "13" -> 1351
+  "14" -> 1609
+  "15" -> 834
+  "16" -> 2017
+  "17" -> 2018
+  "18" -> 1610
+  "19" -> 1611
+  "20" -> 209
 
 Index-to-Word Mappings:
-  0 -> "the"
-  1 -> "you"
-  2 -> "and"
-  3 -> "to"
-  4 -> "of"
-  5 -> "your"
-  6 -> "in"
-  7 -> "a"
-  8 -> "that"
-  9 -> "is"
-  10 -> "it"
-  11 -> "are"
-  12 -> "or"
-  13 -> "be"
-  14 -> "what"
-  15 -> "for"
-  16 -> "will"
-  17 -> "have"
-  18 -> "on"
-  19 -> "as"
+  0 -> "as"
+  1 -> "life"
+  2 -> "if"
+  3 -> "goals"
+  4 -> "time"
+  5 -> "people"
+  6 -> "goal"
+  7 -> "yourself"
+  8 -> "one"
+  9 -> "every"
+  10 -> "about"
+  11 -> "from"
+  12 -> "make"
+  13 -> "work"
+  14 -> "want"
+  15 -> "get"
+  16 -> "day"
+  17 -> "success"
+  18 -> "into"
+  19 -> "achieve"
 
 === EXAMPLE TRAINING PAIRS ===
 
 
 Pair 1:
-  Context indices: [49, 3, 55]
-  Context words: [how, to, get]
-  Target index: 30
+  Context indices: [15, 40]
+  Context words: [get, everything]
+  Target index: 3
   Target word: "goals"
 
 Pair 2:
-  Context indices: [30, 3, 55, 103]
-  Context words: [goals, to, get, everything]
-  Target index: 49
-  Target word: "how"
-
-Pair 3:
-  Context indices: [30, 49, 55, 103, 1]
-  Context words: [goals, how, get, everything, you]
-  Target index: 3
-  Target word: "to"
-
-Pair 4:
-  Context indices: [30, 49, 3, 103, 1, 54]
-  Context words: [goals, how, to, everything, you, want]
-  Target index: 55
+  Context indices: [3, 40, 14, 147, 123]
+  Context words: [goals, everything, want, -, faster]
+  Target index: 15
   Target word: "get"
 
-Pair 5:
-  Context indices: [49, 3, 55, 1, 54, 200]
-  Context words: [how, to, get, you, want, faster]
-  Target index: 103
+Pair 3:
+  Context indices: [3, 15, 14, 147, 123]
+  Context words: [goals, get, want, -, faster]
+  Target index: 40
   Target word: "everything"
+
+Pair 4:
+  Context indices: [15, 40, 147, 123, 108]
+  Context words: [get, everything, -, faster, ever]
+  Target index: 14
+  Target word: "want"
+
+Pair 5:
+  Context indices: [15, 40, 14, 123, 108, 306]
+  Context words: [get, everything, want, faster, ever, thought]
+  Target index: 147
+  Target word: "-"
 
 
 === USAGE NOTES ===
@@ -115,6 +115,6 @@ The generated files can be used for:
 4. Text analysis and pattern recognition
 
 For neural network training, use:
-- Input layer size: 831
+- Input layer size: 2787
 - Hidden layer size: 50-300 (embedding dimension)
-- Output layer size: 831
+- Output layer size: 2787

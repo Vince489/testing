@@ -1,6 +1,6 @@
 import fs from 'fs';
 import { NeuralNetwork } from './neural-network-2.js'; // Using neural-network-2.js as in word2vec-similarity.js
-import { Word2VecSimilarity } from './word2vec-similarity.js'; // Import the Word2VecSimilarity class
+import { Word2VecSimilarity } from './wow1.js'; // Import the Word2VecSimilarity class
 
 // Load the trained network and vocabulary
 const networkData = JSON.parse(fs.readFileSync('goals_embedding_network.json', 'utf8'));

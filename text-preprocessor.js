@@ -22,8 +22,18 @@ class TextPreprocessor {
     this.wordToIndex = {};
     this.indexToWord = {};
     this.vocabSize = 0;
-    this.minCount = 5;
-    this.windowSize = 2;
+    this.minCount = 2;
+    this.windowSize = 5;
+    
+    // Define stop words to exclude from vocabulary
+    this.stopWords = new Set([
+      'the', 'a', 'an', 'and', 'or', 'but', 'in', 'on', 'at', 'to', 'for', 'of', 'with', 'by', 'is', 'are', 'was', 'were', 'be', 'been', 'being',
+      'have', 'has', 'had', 'do', 'does', 'did', 'will', 'would', 'should', 'could', 'can', 'may', 'might', 'must', 'shall', 'this', 'that',
+      'these', 'those', 'i', 'you', 'he', 'she', 'it', 'we', 'they', 'me', 'him', 'her', 'us', 'them', 'my', 'your', 'his', 'its', 'our', 'their',
+      'what', 'which', 'who', 'whom', 'whose', 'where', 'when', 'why', 'how', 'all', 'any', 'both', 'each', 'few', 'more', 'most', 'other', 'some',
+      'such', 'no', 'nor', 'not', 'only', 'own', 'same', 'so', 'than', 'too', 'very', 'just', 'now', 'then', 'here', 'there', 'up', 'down', 'out',
+      'over', 'under', 'again', 'further', 'then', 'once', 'here', 'when', 'where', 'how', 'why', 'what', 'which', 'who', 'whom', 'whose'
+    ]);
   }
 
   /**
@@ -38,9 +48,9 @@ class TextPreprocessor {
       // Convert to lowercase
       const lowerText = rawText.toLowerCase();
       
-      // Remove punctuation, numbers, and special characters
-      // Keep only letters and whitespace
-      const cleanedText = lowerText.replace(/[^a-z\s]/g, '');
+      // Remove punctuation and special characters, but preserve numbers and hyphens
+      // Keep letters, numbers, hyphens, and whitespace
+      const cleanedText = lowerText.replace(/[^a-z0-9\s-]/g, '');
       
       // Split by whitespace and filter out empty strings
       const tokens = cleanedText.split(/\s+/).filter(word => word.length > 0);
@@ -71,8 +81,10 @@ class TextPreprocessor {
       counts[word] = (counts[word] || 0) + 1;
     });
 
-    // Filter words by minimum count
-    this.vocab = Object.keys(counts).filter(word => counts[word] >= minCount);
+    // Filter words by minimum count and exclude stop words
+    this.vocab = Object.keys(counts)
+      .filter(word => counts[word] >= minCount)
+      .filter(word => !this.stopWords.has(word));
     
     // Sort vocabulary by frequency (descending)
     this.vocab.sort((a, b) => counts[b] - counts[a]);
@@ -318,8 +330,6 @@ class TextPreprocessor {
    * @param {string} basePath - Base path for saving files
    */
   savePreprocessedData(basePath) {
-    const fs = require('fs');
-    
     // Save vocabulary
     const vocabData = {
       vocab: this.vocab,
@@ -343,8 +353,6 @@ class TextPreprocessor {
    * @param {string} basePath - Base path where files were saved
    */
   loadPreprocessedData(basePath) {
-    const fs = require('fs');
-    
     try {
       // Load vocabulary
       const vocabData = JSON.parse(fs.readFileSync(`${basePath}_vocab.json`, 'utf8'));

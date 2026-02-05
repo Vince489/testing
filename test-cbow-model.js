@@ -1,4 +1,4 @@
-import { CBOWModel } from './neural-network.js';
+import { CBOWModel } from './cbow-model.js';
 import { CBOWCoverageValidator, PerformanceTester, TrainingValidator } from './cbow-validator.js';
 import fs from 'fs';
 

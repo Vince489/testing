@@ -1,14 +1,17 @@
 import fs from 'fs';
 import readline from 'readline';
+import { OptimizedNeuralNetwork } from './optimized-neural-network.js';
 
 // 1. Setup & Data Loading
-const networkData = JSON.parse(fs.readFileSync('./goals_embedding_network.json', 'utf8'));
 const vocabData = JSON.parse(fs.readFileSync('./goals_vocabulary.json', 'utf8'));
 const bookText = fs.readFileSync('./Goals-Brian-Tracy.txt', 'utf8'); 
 
+// Load the network using the binary format
+const network = await OptimizedNeuralNetwork.load('./goals_embedding_network.json');
+
 const wordToIndex = vocabData.wordToIndex;
-const weights = networkData.weights[0]; 
 const dimensions = 20;
+const weights = network.getAllWeightsAsFloat32();
 
 // Filter out noise
 const sentences = bookText.split(/[.!?]+/).filter(s => {

@@ -1,14 +1,34 @@
 import fs from 'fs';
 
 // 1. Load your specific project files
-const networkData = JSON.parse(fs.readFileSync('./goals_embedding_network.json', 'utf8'));
+import { OptimizedNeuralNetwork } from './optimized-neural-network.js';
+
+// Load vocabulary data
 const vocabData = JSON.parse(fs.readFileSync('./goals_vocabulary.json', 'utf8'));
+
+// Load the network using the binary format
+const network = await OptimizedNeuralNetwork.load('./goals_embedding_network.json');
 const bookText = fs.readFileSync('./Goals-Brian-Tracy.txt', 'utf8'); 
 
 // Access the wordToIndex object directly from your JSON
 const wordToIndex = vocabData.wordToIndex;
-const weights = networkData.weights[0]; 
 const dimensions = 20;
+
+// Get weights from the loaded network
+// The first layer contains the input-to-hidden weights (embeddings)
+const inputLayer = network.layers[0];
+const vocabSize = vocabData.vocabSize;
+const embeddingDim = 20; // Assuming 20-dimensional embeddings
+
+// Extract embeddings from the weight matrix
+const embeddings = {};
+for (let i = 0; i < vocabSize; i++) {
+    const wordEmbedding = [];
+    for (let j = 0; j < embeddingDim; j++) {
+        wordEmbedding.push(inputLayer.weights[i * embeddingDim + j]);
+    }
+    embeddings[i] = wordEmbedding;
+}
 
 console.log(`Loaded vocabulary with ${vocabData.vocabSize} words.`);
 
@@ -17,7 +37,7 @@ function getWordVector(word) {
     const index = wordToIndex[word.toLowerCase()];
     // Check if the word exists (index could be 0, so we check for undefined)
     if (index === undefined) return null;
-    return weights[index];
+    return embeddings[index];
 }
 
 // Helper: Cosine Similarity

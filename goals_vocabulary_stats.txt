@@ -2,51 +2,51 @@
 === GOALS-BRIAN-TRACY.TXT PREPROCESSING RESULTS ===
 
 File: Goals-Brian-Tracy.txt
-Generated: 2026-02-04T12:52:13.723Z
+Generated: 2026-02-05T02:08:21.310Z
 
 === STATISTICS ===
-Total tokens: 72612
-Unique tokens: 4867
-Vocabulary size (min count >= 10): 831
-Tokens in vocabulary: 62924
-Vocabulary coverage: 86.66%
-Minimum count threshold: 10
-Window size: 3
+Total tokens: 73178
+Unique tokens: 5012
+Vocabulary size (min count >= 2): 2787
+Tokens in vocabulary: 34510
+Vocabulary coverage: 47.16%
+Minimum count threshold: 2
+Window size: 5
 
 === VOCABULARY INFORMATION ===
-Vocabulary contains the 831 most frequent words that appear at least 10 times.
+Vocabulary contains the 2787 most frequent words that appear at least 2 times.
 
 Top 30 most frequent words:
-  1. "the"
-  2. "you"
-  3. "and"
-  4. "to"
-  5. "of"
-  6. "your"
-  7. "in"
-  8. "a"
-  9. "that"
-  10. "is"
-  11. "it"
-  12. "are"
-  13. "or"
-  14. "be"
-  15. "what"
-  16. "for"
-  17. "will"
-  18. "have"
-  19. "on"
-  20. "as"
-  21. "this"
-  22. "with"
-  23. "they"
-  24. "do"
-  25. "i"
-  26. "more"
-  27. "life"
-  28. "can"
-  29. "if"
-  30. "at"
+  1. "as"
+  2. "life"
+  3. "if"
+  4. "goals"
+  5. "time"
+  6. "people"
+  7. "goal"
+  8. "yourself"
+  9. "one"
+  10. "every"
+  11. "about"
+  12. "from"
+  13. "make"
+  14. "work"
+  15. "want"
+  16. "get"
+  17. "day"
+  18. "success"
+  19. "into"
+  20. "achieve"
+  21. "important"
+  22. "like"
+  23. "mind"
+  24. "think"
+  25. "way"
+  26. "person"
+  27. "today"
+  28. "take"
+  29. "become"
+  30. "years"
 
 === FILE OUTPUTS ===
 - goals_cleaned_tokens.json: Array of all cleaned tokens

@@ -1,9 +1,9 @@
 import fs from 'fs';
-import { NeuralNetwork } from './neural-network-3.js';
+import { NeuralNetwork } from './neural-network-2.js';
 
 async function testModel() {
     // 1. Load the vocabulary and the network
-    // We use the static load method from your neural-network-3.js class
+    // We use the static load method from your neural-network-2.js class
     const vocabData = JSON.parse(fs.readFileSync('goals_vocabulary.json', 'utf8'));
     const nn = NeuralNetwork.load('goals_embedding_network.json');
 
@@ -53,10 +53,10 @@ async function testModel() {
 
     // 4. Test Cases based on Brian Tracy's "Goals" themes
     const tests = [
-        ["how", "to", "your"],           // Likely: "achieve", "set", or "reach"
-        ["write", "down", "your"],      // Likely: "goals"
-        ["you", "must", "a"],           // Likely: "have" or "become"
-        ["the", "most", "is"]           // General context
+        ["write", "down", "life"],      
+        ["achieve", "success", "work"], 
+        ["people", "think", "time"],    
+        ["become", "important", "person"]
     ];
 
     console.log('\n=== Brian Tracy Model Inference Test ===\n');

@@ -1,5 +1,5 @@
 import fs from 'fs';
-import { NeuralNetwork } from './neural-network-3.js';
+import { OptimizedNeuralNetwork } from './optimized-neural-network.js';
 
 async function trainGoalsModel() {
     console.log('--- Loading Preprocessed Data ---');
@@ -7,7 +7,7 @@ async function trainGoalsModel() {
     const trainingPairs = JSON.parse(fs.readFileSync('goals_training_pairs.json', 'utf8'));
     
     const vocabSize = vocabData.vocabSize;
-    const embeddingDim = 30;
+    const embeddingDim = 16;
 
     console.log(`Vocab Size: ${vocabSize}`);
     console.log(`Training Pairs: ${trainingPairs.length}`);
@@ -33,17 +33,17 @@ async function trainGoalsModel() {
     });
     console.log('✓ Formatting Complete.\n');
 
+    // NEW: Use OptimizedNeuralNetwork with DenseLayer architecture
     const nnConfig = {
-        layers: [vocabSize, embeddingDim, vocabSize],
-        learningRate: 0.05,
-        activation: 'tanh',
-        outputActivation: 'sigmoid',
-        momentum: 0.9,
-        batchSize: 64,
-        verbose: true
+        layerConfigs: [vocabSize, embeddingDim, vocabSize], // DenseLayer sizes
+        learningRate: 0.001, // Lower for Adam optimizer
+        outputActivation: 'softmax', // Better for classification
+        lossFunction: 'cross_entropy', // Better for classification
+        useAdam: true, // Use Adam instead of momentum
+        gradientClipping: 5.0
     };
 
-    const nn = new NeuralNetwork(nnConfig);
+    const nn = new OptimizedNeuralNetwork(nnConfig);
 
     console.log('--- Starting Training ---');
     console.log('Legend: Each "." represents one batch processed.\n');
@@ -51,7 +51,8 @@ async function trainGoalsModel() {
     nn.train(formattedData, 5, {
         earlyStopping: true,
         patience: 5,
-        minDelta: 0.0001
+        minDelta: 0.0001,
+        verbose: true
     });
 
     nn.save('goals_embedding_network.json');
@@ -59,3 +60,4 @@ async function trainGoalsModel() {
 }
 
 trainGoalsModel().catch(err => console.error(err));
+

@@ -1,4 +1,4 @@
-import { CBOWModel } from './neural-network.js';
+import { CBOWModel } from './cbow-model.js';
 import fs from 'fs';
 
 /**

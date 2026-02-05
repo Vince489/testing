@@ -25,14 +25,14 @@ async function cleanGoalsText() {
 
     // 3. Build vocabulary with configurable frequency threshold
     console.log('\nStep 3: Building vocabulary...');
-    const minCount = 10; // Keep words that appear at least 10 times
+    const minCount = 2; // Keep words that appear at least 2 times
     const vocabInfo = preprocessor.buildVocab(tokens, minCount);
     
     console.log(`✓ Vocabulary built with ${vocabInfo.vocabSize} words (min count: ${minCount})`);
 
     // 4. Generate CBOW training pairs
     console.log('\nStep 4: Generating CBOW training pairs...');
-    const windowSize = 3; // Use window size of 3
+    const windowSize = 5; // Use window size of 5
     const trainingPairs = preprocessor.generateTrainingPairs(tokens, windowSize);
     
     console.log(`✓ Generated ${trainingPairs.length} training pairs (window size: ${windowSize})`);
